@@ -76,8 +76,8 @@ DATA.forEach(c=>{
   s.innerHTML=`<div class="clshead" style="--c:var(--${c.cls})">
       <span class="dot"></span><h2>${c.name}</h2><span class="role">${c.role}</span><span class="ln"></span></div>
     <div class="grid">${ACTIONS.map(a=>{
-      const file=`images/${c.cls}-${a.slug}.png`;
-      const dlname=`${c.cls}-${a.slug}.png`;
+      const file=`images/${c.cls}-${a.slug}.jpg`;
+      const dlname=`${c.cls}-${a.slug}.jpg`;
       return `
       <a class="card" style="--c:var(--${c.cls})" href="${file}" download="${dlname}">
         <span class="dl">DOWNLOAD ↓</span>
