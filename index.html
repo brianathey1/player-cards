@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Push AI Renaissance — Player Cards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap');
+  :root{--gold:#e7b94a;--gold-deep:#a8761d;--teal:#3fd0c9;
+    --sage:#6f8fe0;--artist:#e26ac0;--rogue:#54c878;--hero:#e0564b;--parch:#e9dcc0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Spectral',serif;background:radial-gradient(120% 80% at 50% -10%,rgba(63,208,201,.10),transparent 55%),#07080d;color:var(--parch);padding:40px 22px 70px;}
+  header{text-align:center;max-width:1100px;margin:0 auto 14px;}
+  .eyebrow{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.4em;font-size:12px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;}
+  h1{font-family:'Cinzel Decorative',serif;font-weight:900;font-size:46px;line-height:1;
+    background:linear-gradient(180deg,#fff7e0,var(--gold) 55%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .sub{font-style:italic;color:#cdbd97;margin-top:12px;font-size:15px;}
+  .note{font-size:12px;color:#7e745a;margin-top:10px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  section{margin-top:46px;}
+  .clshead{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+  .clshead .dot{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c);}
+  .clshead h2{font-family:'Cinzel',serif;font-weight:900;letter-spacing:.12em;font-size:24px;color:#fff;text-transform:uppercase;}
+  .clshead .role{font-style:italic;color:var(--c);font-size:14px;}
+  .clshead .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--c),transparent);opacity:.5;}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+  @media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);}}
+  .card{position:relative;border:1.5px solid var(--c);border-radius:9px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.35));
+    box-shadow:0 8px 22px rgba(0,0,0,.5),inset 0 0 26px color-mix(in srgb,var(--c) 22%,transparent);
+    text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.6),0 0 18px var(--c);}
+  .card .pic{aspect-ratio:3/4;background:#0a0c14;overflow:hidden;}
+  .card img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card .lab{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.14em;font-size:11px;text-transform:uppercase;
+    text-align:center;color:var(--c);padding:9px 4px 11px;}
+  .dl{position:absolute;top:7px;right:7px;background:rgba(7,8,13,.78);color:var(--parch);font-family:'Cinzel',serif;
+    font-size:9px;letter-spacing:.1em;padding:3px 7px;border-radius:4px;border:1px solid var(--c);opacity:0;transition:opacity .15s;}
+  .card:hover .dl{opacity:1;}
+</style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">✦ Push AI Renaissance ✦</div>
+    <h1>Player Cards</h1>
+    <p class="sub">Six action variants per guide — for scenarios throughout the Chronicle.</p>
+    <p class="note">Click any card to open the full-resolution image, then right-click → Save. Joe Mad / comic-anime style.</p>
+  </header>
+  <div class="wrap" id="wrap"></div>
+
+<script>
+const BASE="https://d8j0ntlcm91z4.cloudfront.net/user_3D0zFjAiPE0NyE3sKIeCb8GmbD8/";
+const ACTIONS=["Battle","Solving Puzzles","Conjuring","Healing","Special Power","Victorious"];
+const DATA=[
+  {name:"The Sage",role:"Keeper of wisdom",cls:"sage",files:[
+    "hf_20260615_022437_c6c67e67-7f75-4a53-9b76-4195d840dde3.png",
+    "hf_20260615_022606_cfb5ac39-56e1-4cfd-aba1-d0e618440f8b.png",
+    "hf_20260615_022609_25c32f60-035b-4693-a651-346fb4284400.png",
+    "hf_20260615_022611_a279af64-7491-4881-8172-64c6f9b992da.png",
+    "hf_20260615_022625_f11314f8-d6e9-499a-8b81-3045a46e2826.png",
+    "hf_20260615_022630_7da8db22-2966-412c-bca3-9141e9563024.png"]},
+  {name:"The Artist",role:"Maker of beautiful things",cls:"artist",files:[
+    "hf_20260615_022637_a5b34c51-8d7d-425e-a7a3-10c3ce533fd5.png",
+    "hf_20260615_022643_7e61f995-ee16-4bdb-a596-d13915fe719e.png",
+    "hf_20260615_022647_22d8d5bc-287b-4cef-a12a-67424b7fabfe.png",
+    "hf_20260615_022650_2efb83e3-366e-4db4-bb8f-dedf18f84a1a.png",
+    "hf_20260615_022653_ee2f042a-90a3-43bd-b456-7bbfd3f955a6.png",
+    "hf_20260615_022656_3e65bd47-6c50-40f2-b0a2-471498c6574b.png"]},
+  {name:"The Rogue",role:"Allergic to wasted motion",cls:"rogue",files:[
+    "hf_20260615_023052_10a04844-1c78-4c26-816a-327e207863ce.png",
+    "hf_20260615_022719_b6df8aee-1c60-4be1-a10c-3bd5a679a260.png",
+    "hf_20260615_022722_bc409d1d-d46d-4479-85af-ad026126b7cd.png",
+    "hf_20260615_022724_cb24d608-4243-4490-bcc6-d6dbde0ec5df.png",
+    "hf_20260615_022808_e07430f4-8da2-44ec-a9ab-70a6c521f790.png",
+    "hf_20260615_022813_de1f5d64-aaad-4c40-9baa-f37818f73288.png"]},
+  {name:"The Fallen Hero",role:"Relearning trust in the machines",cls:"hero",files:[
+    "hf_20260615_022818_271589e8-e063-4f0e-ac4b-52c971a1af48.png",
+    "hf_20260615_022822_cc8abdbd-32a6-4cdf-b749-ba1bb1955d35.png",
+    "hf_20260615_022825_01b08670-8001-43ed-914e-d30a76be5907.png",
+    "hf_20260615_022858_135ea8bc-6c27-4a14-bb7c-205f76823502.png",
+    "hf_20260615_022918_eebf4830-7b56-40a4-aafa-96b0c9d06e5b.png",
+    "hf_20260615_022920_bb4dd561-e0f5-4783-aad8-18f034fd3b6a.png"]},
+];
+const wrap=document.getElementById("wrap");
+DATA.forEach(c=>{
+  const s=document.createElement("section");
+  s.style.setProperty("--c",`var(--${c.cls})`);
+  s.innerHTML=`<div class="clshead" style="--c:var(--${c.cls})">
+      <span class="dot"></span><h2>${c.name}</h2><span class="role">${c.role}</span><span class="ln"></span></div>
+    <div class="grid">${c.files.map((f,i)=>`
+      <a class="card" style="--c:var(--${c.cls})" href="${BASE+f}" target="_blank" rel="noopener">
+        <span class="dl">OPEN ↗</span>
+        <div class="pic"><img loading="lazy" src="${BASE+f}" alt="${c.name} — ${ACTIONS[i]}"></div>
+        <div class="lab">${ACTIONS[i]}</div>
+      </a>`).join("")}</div>`;
+  wrap.appendChild(s);
+});
+</script>
+</body>
+</html>
