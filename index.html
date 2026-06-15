@@ -16,6 +16,11 @@
     background:linear-gradient(180deg,#fff7e0,var(--gold) 55%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
   .sub{font-style:italic;color:#cdbd97;margin-top:12px;font-size:15px;}
   .note{font-size:12px;color:#7e745a;margin-top:10px;}
+  .dlall{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:'Cinzel',serif;font-weight:700;
+    letter-spacing:.14em;font-size:12px;text-transform:uppercase;text-decoration:none;color:#07080d;
+    background:linear-gradient(180deg,#fff7e0,var(--gold) 60%,var(--gold-deep));padding:11px 22px;border-radius:7px;
+    box-shadow:0 6px 18px rgba(231,185,74,.28);transition:transform .15s ease,box-shadow .15s ease;}
+  .dlall:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(231,185,74,.45);}
   .wrap{max-width:1180px;margin:0 auto;}
   section{margin-top:46px;}
   .clshead{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
@@ -45,42 +50,24 @@
     <div class="eyebrow">✦ Push AI Renaissance ✦</div>
     <h1>Player Cards</h1>
     <p class="sub">Six action variants per guide — for scenarios throughout the Chronicle.</p>
-    <p class="note">Click any card to open the full-resolution image, then right-click → Save. Joe Mad / comic-anime style.</p>
+    <p class="note">Click any card to download the full-resolution image. Joe Mad / comic-anime style.</p>
+    <a class="dlall" href="player-cards-all.zip" download>⬇ Download all 24 cards (.zip)</a>
   </header>
   <div class="wrap" id="wrap"></div>
 
 <script>
-const BASE="https://d8j0ntlcm91z4.cloudfront.net/user_3D0zFjAiPE0NyE3sKIeCb8GmbD8/";
-const ACTIONS=["Battle","Solving Puzzles","Conjuring","Healing","Special Power","Victorious"];
+const ACTIONS=[
+  {label:"Battle",slug:"battle"},
+  {label:"Solving Puzzles",slug:"solving"},
+  {label:"Conjuring",slug:"conjuring"},
+  {label:"Healing",slug:"healing"},
+  {label:"Special Power",slug:"special"},
+  {label:"Victorious",slug:"victorious"}];
 const DATA=[
-  {name:"The Sage",role:"Keeper of wisdom",cls:"sage",files:[
-    "hf_20260615_022437_c6c67e67-7f75-4a53-9b76-4195d840dde3.png",
-    "hf_20260615_022606_cfb5ac39-56e1-4cfd-aba1-d0e618440f8b.png",
-    "hf_20260615_022609_25c32f60-035b-4693-a651-346fb4284400.png",
-    "hf_20260615_022611_a279af64-7491-4881-8172-64c6f9b992da.png",
-    "hf_20260615_022625_f11314f8-d6e9-499a-8b81-3045a46e2826.png",
-    "hf_20260615_022630_7da8db22-2966-412c-bca3-9141e9563024.png"]},
-  {name:"The Artist",role:"Maker of beautiful things",cls:"artist",files:[
-    "hf_20260615_022637_a5b34c51-8d7d-425e-a7a3-10c3ce533fd5.png",
-    "hf_20260615_022643_7e61f995-ee16-4bdb-a596-d13915fe719e.png",
-    "hf_20260615_022647_22d8d5bc-287b-4cef-a12a-67424b7fabfe.png",
-    "hf_20260615_022650_2efb83e3-366e-4db4-bb8f-dedf18f84a1a.png",
-    "hf_20260615_022653_ee2f042a-90a3-43bd-b456-7bbfd3f955a6.png",
-    "hf_20260615_022656_3e65bd47-6c50-40f2-b0a2-471498c6574b.png"]},
-  {name:"The Rogue",role:"Allergic to wasted motion",cls:"rogue",files:[
-    "hf_20260615_023052_10a04844-1c78-4c26-816a-327e207863ce.png",
-    "hf_20260615_022719_b6df8aee-1c60-4be1-a10c-3bd5a679a260.png",
-    "hf_20260615_022722_bc409d1d-d46d-4479-85af-ad026126b7cd.png",
-    "hf_20260615_022724_cb24d608-4243-4490-bcc6-d6dbde0ec5df.png",
-    "hf_20260615_022808_e07430f4-8da2-44ec-a9ab-70a6c521f790.png",
-    "hf_20260615_022813_de1f5d64-aaad-4c40-9baa-f37818f73288.png"]},
-  {name:"The Fallen Hero",role:"Relearning trust in the machines",cls:"hero",files:[
-    "hf_20260615_022818_271589e8-e063-4f0e-ac4b-52c971a1af48.png",
-    "hf_20260615_022822_cc8abdbd-32a6-4cdf-b749-ba1bb1955d35.png",
-    "hf_20260615_022825_01b08670-8001-43ed-914e-d30a76be5907.png",
-    "hf_20260615_022858_135ea8bc-6c27-4a14-bb7c-205f76823502.png",
-    "hf_20260615_022918_eebf4830-7b56-40a4-aafa-96b0c9d06e5b.png",
-    "hf_20260615_022920_bb4dd561-e0f5-4783-aad8-18f034fd3b6a.png"]},
+  {name:"The Sage",role:"Keeper of wisdom",cls:"sage"},
+  {name:"The Artist",role:"Maker of beautiful things",cls:"artist"},
+  {name:"The Rogue",role:"Allergic to wasted motion",cls:"rogue"},
+  {name:"The Fallen Hero",role:"Relearning trust in the machines",cls:"hero"},
 ];
 const wrap=document.getElementById("wrap");
 DATA.forEach(c=>{
@@ -88,12 +75,15 @@ DATA.forEach(c=>{
   s.style.setProperty("--c",`var(--${c.cls})`);
   s.innerHTML=`<div class="clshead" style="--c:var(--${c.cls})">
       <span class="dot"></span><h2>${c.name}</h2><span class="role">${c.role}</span><span class="ln"></span></div>
-    <div class="grid">${c.files.map((f,i)=>`
-      <a class="card" style="--c:var(--${c.cls})" href="${BASE+f}" target="_blank" rel="noopener">
-        <span class="dl">OPEN ↗</span>
-        <div class="pic"><img loading="lazy" src="${BASE+f}" alt="${c.name} — ${ACTIONS[i]}"></div>
-        <div class="lab">${ACTIONS[i]}</div>
-      </a>`).join("")}</div>`;
+    <div class="grid">${ACTIONS.map(a=>{
+      const file=`images/${c.cls}-${a.slug}.png`;
+      const dlname=`${c.cls}-${a.slug}.png`;
+      return `
+      <a class="card" style="--c:var(--${c.cls})" href="${file}" download="${dlname}">
+        <span class="dl">DOWNLOAD ↓</span>
+        <div class="pic"><img loading="lazy" src="${file}" alt="${c.name} — ${a.label}"></div>
+        <div class="lab">${a.label}</div>
+      </a>`;}).join("")}</div>`;
   wrap.appendChild(s);
 });
 </script>
